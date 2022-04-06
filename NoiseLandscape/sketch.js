@@ -19,9 +19,6 @@ function setup() {
     translate(0, 0, -400);
     rotateX(60);
     rotateZ(45);
-    // rotateZ(frameCount / 4);
-    // rotateX(map(cos(frameCount/4), -1, 1, 30, -30));
-    // rotateY(map(sin(frameCount/4), -1, 1, -30, 30));
     noStroke();
     directionalLight([255], createVector(0, 0, -1));
     directionalLight([255], createVector(0, 0, -1));
@@ -36,8 +33,9 @@ function setup() {
             var terrainColor = gradient.sample(map(h, 0, 200 * .5, 0, 1));
             push();
             fill(terrainColor);
-            translate(x, y, h * .5);
-            box(w, w, h);
+            h2 = h * 1.5;
+            translate(x, y, h2 * .5);
+            box(w, w, h2);
             pop();
 
             yoff += 0.1;
