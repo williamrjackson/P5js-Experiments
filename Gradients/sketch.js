@@ -1,14 +1,6 @@
-var squareSize = 400;
 var gradient;
-let theta = 0.0;
 
 function setup() {
-    createCanvas(windowWidth, windowHeight);
-    background(30);  
-    rectMode(CENTER);
-    squareSize = min(windowWidth, windowHeight) * .5;
-    noStroke();
-    
     // Create gradient
     gradient = new LinearGradient();
     gradient.addStop(0, color("magenta"));
@@ -16,26 +8,37 @@ function setup() {
     gradient.addStop(.5, color("green"));
     gradient.addStop(.75, color("black"));
     gradient.addStop(1, color("blue"));
-
-    // Draw a gradient bar at the bottom of the window
-    var barHeight = windowHeight * .3;
-    for (let i = 0; i < windowWidth; i++) {
-        fill(gradient.sample(map(i, 0, windowWidth, 0, 1)))
-        rect(i, windowHeight, barHeight);
-    }
 }
 
 function draw() {
-
+    createCanvas(windowWidth, windowHeight);
+    squareSize = min(windowWidth, windowHeight) * .5;
+    background(30);  
+    
+    noStroke();
     // Pingpong across all values
     // coloring the rect.
-    theta += .01;
-    var val = map(sin(theta), -1, 1, 0, 1);
-    fill(gradient.sample(val));
-    rect(width * .5, 
-        height * .5, 
+    var triwaveSpeed = .005;
+    var triwaveMax = 1;
+    var triwave = abs((frameCount * triwaveSpeed % (triwaveMax * 2)) - triwaveMax);
+
+    fill(gradient.sample(triwave));
+    rect(width * .5 - squareSize * .5, 
+        height * .4 - squareSize * .5, 
         squareSize, squareSize, 
         squareSize / 8);
+
+    // Draw a gradient bar at the bottom of the window
+    var barHeight = windowHeight * .2;
+    for (let i = 0; i < windowWidth; i++) {
+        fill(gradient.sample(map(i, 0, windowWidth, 0, 1)))
+        rect(i, windowHeight - barHeight, barHeight);
+    }
+
+    // Draw marker at sample point on gradient
+    stroke(color("white"));
+    noFill();
+    rect(map(triwave, 0, 1, 0, windowWidth), windowHeight - barHeight - 3, 3, barHeight + 2);
 }
 
 // clamp a value to within 0 and 1
