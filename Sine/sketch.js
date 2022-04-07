@@ -2,7 +2,7 @@ var ringCount = 50;
 var radiusScale = 3;
 
 function setup() {
-    createCanvas(400, 400, WEBGL);
+    createCanvas(windowWidth, windowHeight, WEBGL);
     angleMode(DEGREES);
 }
 
