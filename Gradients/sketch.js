@@ -88,4 +88,13 @@ class LinearGradient
         });
         return canvasGradient;
     }
+    getCanvasRadialGradient(x0, y0, r0, x1, y1, r1)
+    {
+        let canvasRadGradient = drawingContext.createRadialGradient(x0, y0, r0, x1, y1, r1);
+        this.map.forEach((value, key) => 
+        {
+            canvasRadGradient.addColorStop(key, value);
+        });
+        return canvasRadGradient;
+    }
 }
